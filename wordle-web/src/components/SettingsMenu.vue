@@ -1,29 +1,44 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify/lib/framework.mjs'
+import { useTheme } from 'vuetify'
+import { ref } from 'vue'
+import { watch } from 'vue'
 
 const theme = useTheme()
+const isDark = ref(true)
 
-function setInverseTheme() {
-  theme.global.name.value = 'inverse'
+function setDefaultTheme() {
+  if (isDark.value) {
+    theme.global.name.value = 'dark'
+  } else {
+    theme.global.name.value = 'light'
+  }
 }
 
-function setDarkTheme() {
-  theme.global.name.value = 'dark'
+function setDesertTheme() {
+  if (isDark.value) {
+    theme.global.name.value = 'desertDark'
+  } else {
+    theme.global.name.value = 'desertLight'
+  }
 }
 
-function setLightTheme() {
-  theme.global.name.value = 'light'
+function setOceanTheme() {
+  if (isDark.value) {
+    theme.global.name.value = 'oceanDark'
+  } else {
+    theme.global.name.value = 'oceanLight'
+  }
 }
 
-function setPastelTheme() {
-  theme.global.name.value = 'pastel'
-}
-</script>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({})
+watch(isDark, () => {
+  if (theme.global.name.value.includes('ocean')) {
+    setOceanTheme()
+  } else if (theme.global.name.value.includes('desert')) {
+    setDesertTheme()
+  } else {
+    setDefaultTheme()
+  }
+})
 </script>
 
 <template>
@@ -35,20 +50,30 @@ export default defineComponent({})
     </template>
     <template v-slot:default="{ isActive }">
       <v-card width="500px" height="350px">
-        <v-toolbar color="#5439AA">
+        <v-toolbar color="primary">
           <v-toolbar-title class="flex text-center">
-            <span class="text-h4 bold">Settings</span>
+            <span class="text-h4"> Settings </span>
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <V-text class="text-h5 bold"> Theme: </V-text> <br /><br />
-          <v-btn variant="tonal" color="#27AE6A" @click="setInverseTheme">Inverse</v-btn> &nbsp;
-          <v-btn variant="tonal" color="#9575CD" @click="setDarkTheme">Dark</v-btn> &nbsp;
-          <v-btn variant="tonal" color="#FFEE58" @click="setLightTheme">Light</v-btn> &nbsp;
-          <v-btn variant="tonal" color="#BA68C8" @click="setPastelTheme">Pastel</v-btn>
+          <v-card-title class="text-h5 pb-8"> Theme: </v-card-title>
+
+          <v-switch inset v-model="isDark" :label="'Light/Dark'"></v-switch>
+
+          <v-btn variant="tonal" color="#9575CD" @click="setDefaultTheme">Default</v-btn> &nbsp;
+          <v-btn variant="tonal" color="#FF781E" @click="setDesertTheme">Desert</v-btn>&nbsp;
+          <v-btn variant="tonal" color="#3079CC" @click="setOceanTheme">Ocean</v-btn>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="#B0BEC5" text size="x-large" @click="isActive.value = false">Close</v-btn>
+          <v-btn
+            variant="text"
+            density="compact"
+            elevation="4"
+            text
+            size="x-large"
+            @click="isActive.value = false"
+            >Close</v-btn
+          >
         </v-card-actions>
       </v-card>
     </template>

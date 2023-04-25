@@ -3,7 +3,7 @@ import { Letter, LetterStatus } from './letter'
 export class Word {
   public letters = Array<Letter>()
 
-  constructor(word?: string | null | number) {
+  constructor(word?: string | null, numberOfLetters: number = 5) {
     if (word) {
       if (typeof word == 'number') {
         // Add one letter for each number. With blank spots
@@ -16,7 +16,23 @@ export class Word {
           this.letters.push(new Letter(letter))
         }
       }
+    } else {
+      // add empty letters to array
+      for (let i = this.letters.length; i < numberOfLetters; i++) {
+        this.letters.push(new Letter())
+      }
     }
+  }
+
+  clear() {
+    this.letters.forEach((letter) => {
+      letter.char = ''
+      letter.status = LetterStatus.NotGuessed
+    })
+  }
+
+  set(value: string) {
+    value.split('').forEach((l) => this.push(l))
   }
 
   get text() {
@@ -44,8 +60,6 @@ export class Word {
   }
 
   check(secretWord: string): boolean {
-    console.log(this.text)
-
     // check if the letters are valid
     //const results = new Word()
     const guessChars = this.letters.map((l) => l.char)
@@ -56,11 +70,9 @@ export class Word {
         this.letters[i].status = LetterStatus.Correct
         guessChars[i] = '_'
         secretChars[i] = '_'
-        console.log(`Letter ${i} is correct`)
       } else {
         isCorrect = false
         this.letters[i].status = LetterStatus.Wrong
-        console.log(`Letter ${i} is incorrect`)
       }
     }
 
@@ -71,16 +83,11 @@ export class Word {
             this.letters[i].status = LetterStatus.Misplaced
             guessChars[i] = '_'
             secretChars[j] = '_'
-            console.log(`Letter ${i} is misplaced`)
             break
           }
         }
       }
     }
-
-    console.log(guessChars)
-    console.log(secretChars)
-    console.log(isCorrect)
     return isCorrect
     // check if the letters are in the right place
   }

@@ -7,10 +7,11 @@
         class="logo ms-4"
         :src="logo"
         width="60"
+        style="cursor: pointer"
         @click="$router.push('/')"
       />
 
-      <v-app-bar-title font-size="" id="siteTitle" @click="$router.push('/')">
+      <v-app-bar-title style="cursor: pointer" font-size="" id="siteTitle" @click="$router.push('/')">
         Xela Games
       </v-app-bar-title>
 
@@ -45,12 +46,12 @@ import SettingsMenu from '@/components/SettingsMenu.vue'
 
 <script lang="ts">
 export default {
-  data() {
-    return {
-      drawer: false,
-      dialog: false
-    }
-  }
+    data() {
+        return {
+            drawer: false,
+            dialog: false
+        };
+    },
 }
 </script>
 

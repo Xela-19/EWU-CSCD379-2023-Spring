@@ -21,7 +21,48 @@
   <v-btn class="button" variant="outlined" color="secondary" @click="$router.go(-1)">Back</v-btn>
   &nbsp;
   <v-btn variant="outlined" color="secondary" to="/">Home</v-btn>
+
+  <v-spacer/> <br/>
+  {{ isDialogOpen }}
+  <WeatherDialog v-model="isDialogOpen" :weather="currentWeather"></WeatherDialog>
+
+  <v-card v-for="item in weatherData" :key="item.date" @click="setCurrentWeather(item)">
+    {{ item.summary }}</v-card
+  >
 </template>
+
 <script setup lang="ts">
 import grant from '@/assets/Grant.gif'
+import Axios from 'axios'
+import { ref } from 'vue'
+import WeatherDialog from '@/components/WeatherDialog.vue'
+import type { WeatherData } from '@/types/WeatherData'
+
+const isDialogOpen = ref(false)
+const weatherData = ref<WeatherData[]>()
+const currentWeather = ref<WeatherData>()
+
+function setCurrentWeather(weather: WeatherData) {
+  currentWeather.value = weather
+  isDialogOpen.value = true
+}
+
+Axios.get('https://localhost:7109/WeatherForecast')
+  .then((response) => {
+    console.log(response.data)
+    weatherData.value = response.data
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+</script>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      dialog: false
+    }
+  }
+}
 </script>

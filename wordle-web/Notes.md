@@ -1,6 +1,9 @@
 # Notes
+Problem: The keyboard colors need to reset when you select play again
 
-Needed: A delete button for the in app Wordle keyboard.
+Problem: When you type in the dialog to set the name, the wordle keyboard takes in those letters too
+
+- When on dark theme for ocean and desert, the available words button, check button, and back button are too dark to see
 
 
 Help:

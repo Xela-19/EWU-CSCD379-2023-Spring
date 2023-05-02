@@ -1,6 +1,9 @@
 <template>
+  <!-- Dialog to get user's name -->
+  <UserInfoDialog/>
   <v-container>
-    <h1>Wordle Mind Bender</h1>
+
+    <h1 id='title' class="text-center pb-8">Wordle Mind Bender</h1>
 
     <GameBoard :game="game" @letterClick="addChar" />
 
@@ -12,9 +15,9 @@
       @check-guess="checkGuess"
     />
     <AvailableWordsButton :wordle-game="game" :key="game.guesses.length" @guessChanged="setGuess" />
-    <h3>{{ game.secretWord }}</h3>
     <h3>{{ game.status }}</h3>
 
+    <!-- Results dialog -->
     <v-dialog v-model="showResults" width="500px">
       <v-card class="text-center" height="350px">
         <v-card-title class="text-h5"> Results </v-card-title>
@@ -37,6 +40,7 @@ import GameBoard from '../components/GameBoard.vue'
 import KeyBoard from '../components/KeyBoard.vue'
 import { Letter } from '@/scripts/letter'
 import AvailableWordsButton from '@/components/AvailableWordsButton.vue'
+import UserInfoDialog from '@/components/UserInfoDialog.vue'
 
 const guess = ref('')
 const game = reactive(new WordleGame())
@@ -76,3 +80,11 @@ function resetGame() {
   showResults = false
 }
 </script>
+
+
+<style>
+#title {
+  font-size: 50px;
+  font-family: fantasy;
+  }
+</style>

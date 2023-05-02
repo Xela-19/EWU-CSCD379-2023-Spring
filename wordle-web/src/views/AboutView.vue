@@ -27,7 +27,7 @@
   <WeatherDialog v-model="isDialogOpen" :weather="currentWeather"></WeatherDialog>
 
   <v-card v-for="item in weatherData" :key="item.date" @click="setCurrentWeather(item)">
-    {{ item.summary }}</v-card
+    {{ item.date }}</v-card
   >
 </template>
 

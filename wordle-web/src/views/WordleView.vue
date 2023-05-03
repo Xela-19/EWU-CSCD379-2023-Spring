@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { WordleGame, WordleGameStatus } from '@/scripts/wordleGame'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import GameBoard from '../components/GameBoard.vue'
 import KeyBoard from '../components/KeyBoard.vue'
 import { Letter } from '@/scripts/letter'
@@ -44,7 +44,15 @@ import UserInfoDialog from '@/components/UserInfoDialog.vue'
 
 const guess = ref('')
 const game = reactive(new WordleGame())
-console.log(game.secretWord)
+
+onMounted(async () => {
+  window.addEventListener('keyup', keyPress)
+  await game.restartGame()
+  console.log(game.secretWord)
+})
+onUnmounted(() => {
+  window.removeEventListener('keyup', keyPress)
+})
 let showResults = false
 
 function checkGuess() {

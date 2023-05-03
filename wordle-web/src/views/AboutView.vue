@@ -22,7 +22,7 @@
   &nbsp;
   <v-btn variant="outlined" color="secondary" to="/">Home</v-btn>
 
-  <v-spacer/> <br/>
+  <v-spacer /> <br />
   {{ isDialogOpen }}
   <WeatherDialog v-model="isDialogOpen" :weather="currentWeather!"></WeatherDialog>
 

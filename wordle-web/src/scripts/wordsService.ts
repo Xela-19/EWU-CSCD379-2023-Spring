@@ -8,7 +8,7 @@ export abstract class WordsService {
     return this.#words[Math.floor(Math.random() * this.#words.length)]
   }
 
-  static wordUrl = 'https://wordle2023.azurewebsites.net/word'
+  static wordUrl = 'https://xelagames.azurewebsites.net/word'
 
   static async getWordFromApi(): Promise<string> {
     // Make axios call to get the word from

@@ -1,11 +1,11 @@
 <template>
-<v-dialog transition="dialog-bottom-transition" width="auto" persistent v-model="dialog">
+  <v-dialog transition="dialog-bottom-transition" width="auto" persistent v-model="dialog">
     <template v-slot:activator="{ props }">
-      <v-row justify="end" class="pt-2" >
-        <v-btn v-bind="props" style="cursor: pointer" class="text-h5" variant="outlined" >
-            {{ name }}
+      <v-row justify="end" class="pt-2">
+        <v-btn v-bind="props" style="cursor: pointer" class="text-h5" variant="outlined">
+          {{ name }}
         </v-btn>
-    </v-row>
+      </v-row>
     </template>
     <template v-slot:default="{ isActive }">
       <v-card width="500px" height="350px">
@@ -14,10 +14,17 @@
             <span class="text-h4"> User Information </span>
           </v-toolbar-title>
         </v-toolbar>
-    
+
         <v-card-text>
-            <v-card-title class="text-h5 pb-8"> Name: </v-card-title>
-            <v-text-field v-model="name" label="Name" outlined dense color="primary" class="mb-4"></v-text-field>
+          <v-card-title class="text-h5 pb-8"> Name: </v-card-title>
+          <v-text-field
+            v-model="name"
+            label="Name"
+            outlined
+            dense
+            color="primary"
+            class="mb-4"
+          ></v-text-field>
         </v-card-text>
 
         <v-snackbar v-model="nameError" :timeout="5000" color="red-darken-2">
@@ -25,14 +32,31 @@
         </v-snackbar>
 
         <v-card-actions>
-          <v-btn variant="text" density="compact" elevation="4" text size="x-large" @click="cancel(), isActive.value = false"> Cancel </v-btn>
-          <v-btn variant="text" density="compact" elevation="4" text size="x-large" @click="updateUserInfo()"> Save </v-btn>
+          <v-btn
+            variant="text"
+            density="compact"
+            elevation="4"
+            text
+            size="x-large"
+            @click="cancel(), (isActive.value = false)"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            variant="text"
+            density="compact"
+            elevation="4"
+            text
+            size="x-large"
+            @click="updateUserInfo()"
+          >
+            Save
+          </v-btn>
         </v-card-actions>
       </v-card>
     </template>
   </v-dialog>
 </template>
-
 
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -43,14 +67,13 @@ const name = ref('Guest')
 let userName = name.value
 
 function cancel() {
-    name.value = userName
+  name.value = userName
 }
 
 function updateUserInfo() {
-  if (name.value === "") {
+  if (name.value === '') {
     nameError.value = true
-  }
-  else {
+  } else {
     userName = name.value
     console.log(name.value)
     localStorage.setItem('userName', userName)
@@ -59,16 +82,15 @@ function updateUserInfo() {
 }
 
 if (localStorage.userName !== undefined) {
-    userName = localStorage.userName
-    name.value = userName
-} 
+  userName = localStorage.userName
+  name.value = userName
+}
 
 if (PerformanceNavigationTiming) {
   localStorage.removeItem('userName')
 }
 
-if (name.value == "Guest") {
-    dialog.value = true
+if (name.value == 'Guest') {
+  dialog.value = true
 }
-
 </script>

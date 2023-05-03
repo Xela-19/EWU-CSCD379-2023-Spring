@@ -1,9 +1,8 @@
 <template>
   <!-- Dialog to get user's name -->
-  <UserInfoDialog/>
+  <UserInfoDialog />
   <v-container>
-
-    <h1 id='title' class="text-center pb-8">Wordle Mind Bender</h1>
+    <h1 id="title" class="text-center pb-8">Wordle Mind Bender</h1>
 
     <GameBoard :game="game" @letterClick="addChar" />
 
@@ -89,10 +88,9 @@ function resetGame() {
 }
 </script>
 
-
 <style>
 #title {
   font-size: 50px;
   font-family: fantasy;
-  }
+}
 </style>

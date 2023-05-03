@@ -11,11 +11,7 @@
 
 <script setup lang="ts">
 import type { WeatherData } from '@/types/WeatherData'
-
 const props = defineProps<{
   weather: WeatherData
 }>()
-</script>
-
-const isDialogOpen = ref(false)
 </script>
